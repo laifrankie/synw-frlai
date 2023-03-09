@@ -1,0 +1,10 @@
+{
+	"name": "dlsfrlaipoccdpeas01",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/0b022581-49a8-4393-8b6f-57dda470e935/resourceGroups/rg-frlai-poc-eas-013-dls/providers/Microsoft.Storage/storageAccounts/dlsfrlaipoccdpeas01",
+		"groupId": "dfs",
+		"fqdns": [
+			"dlsfrlaipoccdpeas01.dfs.core.windows.net"
+		]
+	}
+}

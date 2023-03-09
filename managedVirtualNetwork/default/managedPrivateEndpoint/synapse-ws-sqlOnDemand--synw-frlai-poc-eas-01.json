@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sqlOnDemand--synw-frlai-poc-eas-01",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/0b022581-49a8-4393-8b6f-57dda470e935/resourceGroups/rg-frlai-poc-eas-014-synw/providers/Microsoft.Synapse/workspaces/synw-frlai-poc-eas-01",
+		"groupId": "sqlOnDemand",
+		"fqdns": [
+			"synw-frlai-poc-eas-01-ondemand.12c5b7aa-11db-441d-8a71-0bc867378679.sql.azuresynapse.net"
+		]
+	}
+}
