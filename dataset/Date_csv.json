@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "Date_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "synw-frlai-poc-eas-01-WorkspaceDefaultStorage",
