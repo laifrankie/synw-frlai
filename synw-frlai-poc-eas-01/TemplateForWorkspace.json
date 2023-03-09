@@ -15,6 +15,10 @@
 		"synw-frlai-poc-eas-01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://dlsfrlaipoccdpeas01.dfs.core.windows.net"
+		},
+		"kv_frlai_poc_eas_01_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-frlai-poc-eas-01.vault.azure.net/"
 		}
 	},
 	"variables": {
@@ -41,7 +45,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "DelimitedText1",
+								"referenceName": "Date_csv",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -68,11 +72,11 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/datasets/DelimitedText1')]"
+				"[concat(variables('workspaceId'), '/datasets/Date_csv')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/DelimitedText1')]",
+			"name": "[concat(parameters('workspaceName'), '/Date_csv')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -263,6 +267,19 @@
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/managedVirtualNetworks/default')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/kv_frlai_poc_eas_01')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('kv_frlai_poc_eas_01_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

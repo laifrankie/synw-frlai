@@ -10,6 +10,9 @@
 		},
 		"synw-frlai-poc-eas-01-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://dlsfrlaipoccdpeas01.dfs.core.windows.net"
+		},
+		"kv_frlai_poc_eas_01_properties_typeProperties_baseUrl": {
+			"value": "https://kv-frlai-poc-eas-01.vault.azure.net/"
 		}
 	}
 }
