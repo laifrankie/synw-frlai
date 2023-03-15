@@ -8,7 +8,7 @@
 			},
 			"currentConnection": {
 				"poolName": "frlaidataexplorer",
-				"databaseName": ""
+				"databaseName": "TestDatabase"
 			}
 		},
 		"type": "KqlQuery"
