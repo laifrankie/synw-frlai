@@ -1,0 +1,6 @@
+{
+	"name": "mySHIR",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
