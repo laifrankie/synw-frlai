@@ -8,11 +8,11 @@
 		"synw-frlai-poc-eas-01-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synw-frlai-poc-eas-01.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
-		"synw-frlai-poc-eas-01-WorkspaceDefaultStorage_properties_typeProperties_url": {
-			"value": "https://dlsfrlaipoccdpeas01.dfs.core.windows.net"
-		},
 		"kv_frlai_poc_eas_01_properties_typeProperties_baseUrl": {
 			"value": "https://kv-frlai-poc-eas-01.vault.azure.net/"
+		},
+		"synw-frlai-poc-eas-01-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://dlsfrlaipoccdpeas01.dfs.core.windows.net"
 		}
 	}
 }
