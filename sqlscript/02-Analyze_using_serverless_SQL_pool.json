@@ -1,0 +1,21 @@
+{
+	"name": "02-Analyze_using_serverless_SQL_pool",
+	"properties": {
+		"description": "Serverless SQL pools let you use SQL without having to reserve capacity. Billing for a serverless SQL pool is based on the amount of data processed to run the query and not the number of nodes used to run the query.\n\nEvery workspace comes with a pre-configured serverless SQL pool called Built-in.",
+		"folder": {
+			"name": "Quickstarts"
+		},
+		"content": {
+			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://dlsfrlaipoccdpeas01.dfs.core.windows.net/01-raw/SampleData/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
