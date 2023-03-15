@@ -6,12 +6,12 @@
 			"name": "Quickstarts"
 		},
 		"content": {
-			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://dlsfrlaipoccdpeas01.dfs.core.windows.net/01-raw/SampleData/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]",
+			"query": "-- 01 Analyze NYC Taxi data with a serverless SQL pool\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://dlsfrlaipoccdpeas01.dfs.core.windows.net/01-raw/SampleData/NYCTripSmall.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]\n\n-- 02 Create data exploration database\nCREATE DATABASE DataExplorationDB \n    COLLATE Latin1_General_100_BIN2_UTF8\n\nUSE DataExplorationDB\n\nCREATE EXTERNAL DATA SOURCE ContosoLake\nWITH ( LOCATION = 'https://dlsfrlaipoccdpeas01.dfs.core.windows.net')\n\nCREATE LOGIN data_explorer WITH PASSWORD = 'My Very Strong Password 1234!';\n\nCREATE USER data_explorer FOR LOGIN data_explorer;\nGO\nGRANT ADMINISTER DATABASE BULK OPERATIONS TO data_explorer;\nGO\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n            BULK '/01-raw/SampleData/NYCTripSmall.parquet',\n            DATA_SOURCE = 'ContosoLake',\n            FORMAT='PARQUET'\n    ) AS [result]\nGO\n",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "master",
+				"databaseName": "DataExplorationDB",
 				"poolName": "Built-in"
 			},
 			"resultLimit": 5000
