@@ -1,0 +1,11 @@
+{
+	"name": "frlai_pbiws_poc",
+	"properties": {
+		"annotations": [],
+		"type": "PowerBIWorkspace",
+		"typeProperties": {
+			"workspaceID": "990e7544-84de-40fc-8193-8271c5c85bf6",
+			"tenantID": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+		}
+	}
+}
