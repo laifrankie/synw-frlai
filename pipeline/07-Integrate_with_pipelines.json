@@ -1,10 +1,10 @@
 {
-	"name": "Pipeline 1",
+	"name": "07-Integrate_with_pipelines",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
-				"type": "GetMetadata",
+				"name": "04-Analyze_with_Apache_Spark",
+				"type": "SynapseNotebook",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,23 +15,17 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "Date_csv",
-						"type": "DatasetReference"
+					"notebook": {
+						"referenceName": "04-Analyze_with_Apache_Spark",
+						"type": "NotebookReference"
 					},
-					"fieldList": [
-						"size"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"modifiedDatetimeStart": "2023-03-09T00:00:00.000Z",
-						"modifiedDatetimeEnd": "2023-03-09T00:00:00.000Z",
-						"enablePartitionDiscovery": false
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "frlaispark",
+						"type": "BigDataPoolReference"
 					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
-					}
+					"executorSize": "Small",
+					"driverSize": "Small"
 				}
 			}
 		],
