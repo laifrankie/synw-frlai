@@ -195,19 +195,19 @@
 		"parameters": {
 			"ResourceGroup": {
 				"type": "string",
-				"defaultValue": "rg-frlai-demo01-eas"
+				"defaultValue": "rg-frlai-poc-eas-014-synw"
 			},
 			"SubscriptionID": {
 				"type": "string",
-				"defaultValue": "415c3097-1820-4e11-b5b5-e1aef5b822f7"
+				"defaultValue": "0b022581-49a8-4393-8b6f-57dda470e935"
 			},
 			"WorkspaceName": {
 				"type": "string",
-				"defaultValue": "synw-frlai-demo"
+				"defaultValue": "synw-frlai-poc-eas-01"
 			},
 			"SQLPoolName": {
 				"type": "string",
-				"defaultValue": "synsqlpool01"
+				"defaultValue": "SampleDW"
 			},
 			"ScaleUpOrDown": {
 				"type": "string",
