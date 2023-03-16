@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "e6918b40-5cf0-4586-9fd1-801ffddbc4eb"
+				"spark.autotune.trackingId": "5020543c-9663-4f44-a4fc-8f68d2ba3cc3"
 			}
 		},
 		"metadata": {
@@ -77,11 +77,15 @@
 							"deleting": false
 						}
 					},
+					"microsoft": {
+						"language": "python"
+					},
 					"collapsed": false
 				},
 				"source": [
-					"# Analyze NYC Taxi data with a Spark pool\r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# Analyze NYC Taxi data with a Spark pool\r\n",
 					"df = spark.read.load('abfss://01-raw@dlsfrlaipoccdpeas01.dfs.core.windows.net/samplefiles/NYCTrip/NYCTripSmall.parquet', format='parquet')\r\n",
 					"display(df.limit(10))"
 				],
@@ -98,11 +102,15 @@
 						"transient": {
 							"deleting": false
 						}
+					},
+					"microsoft": {
+						"language": "python"
 					}
 				},
 				"source": [
-					"# the schema of the dataframe \r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# the schema of the dataframe \r\n",
 					"df.printSchema()"
 				],
 				"execution_count": 2
@@ -118,11 +126,15 @@
 						"transient": {
 							"deleting": false
 						}
+					},
+					"microsoft": {
+						"language": "python"
 					}
 				},
 				"source": [
-					"# Load the NYC Taxi data into the Spark nyctaxi database\r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# Load the NYC Taxi data into the Spark nyctaxi database\r\n",
 					"spark.sql(\"CREATE DATABASE IF NOT EXISTS nyctaxi\")\r\n",
 					"df.write.mode(\"overwrite\").saveAsTable(\"nyctaxi.trip\")"
 				],
@@ -140,11 +152,15 @@
 							"deleting": false
 						}
 					},
+					"microsoft": {
+						"language": "python"
+					},
 					"collapsed": false
 				},
 				"source": [
-					"# Analyze the NYC Taxi data using Spark and notebooks\r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# Analyze the NYC Taxi data using Spark and notebooks\r\n",
 					"df = spark.sql(\"SELECT * FROM nyctaxi.trip\") \r\n",
 					"display(df)"
 				],
@@ -162,11 +178,15 @@
 							"deleting": false
 						}
 					},
+					"microsoft": {
+						"language": "python"
+					},
 					"collapsed": false
 				},
 				"source": [
-					"# Analyze this data and save the results into a table called nyctaxi.passengercountstats\r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# Analyze this data and save the results into a table called nyctaxi.passengercountstats\r\n",
 					"df = spark.sql(\"\"\"\r\n",
 					"   SELECT passenger_count,\r\n",
 					"       SUM(trip_distance) as SumTripDistance,\r\n",

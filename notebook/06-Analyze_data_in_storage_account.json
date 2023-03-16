@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "a936e730-3101-45ec-80d7-b426a49808d3"
+				"spark.autotune.trackingId": "0fd6d7db-b6e4-43c0-9b44-d7b27f6975ce"
 			}
 		},
 		"metadata": {
@@ -77,11 +77,15 @@
 							"deleting": false
 						}
 					},
+					"microsoft": {
+						"language": "python"
+					},
 					"collapsed": false
 				},
 				"source": [
-					"# Create CSV and Parquet files in your storage account\r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# Create CSV and Parquet files in your storage account\r\n",
 					"df = spark.sql(\"SELECT * FROM nyctaxi.passengercountstats\")\r\n",
 					"df = df.repartition(1) # This ensures we'll get a single file during write()\r\n",
 					"df.write.mode(\"overwrite\").csv(\"/NYCTaxi/PassengerCountStats_csvformat\")\r\n",
@@ -100,11 +104,15 @@
 						"transient": {
 							"deleting": false
 						}
+					},
+					"microsoft": {
+						"language": "python"
 					}
 				},
 				"source": [
-					"# Analyze data in a storage account \r\n",
 					"%%pyspark\r\n",
+					"\r\n",
+					"# Analyze data in a storage account \r\n",
 					"df = spark.read.load('abfss://synwfrlaipoceas01@dlsfrlaipoccdpeas01.dfs.core.windows.net/NYCTaxi/PassengerCountStats_parquetformat/part-00000-83a0b602-6dee-48a6-82c2-80b5253588e2-c000.snappy.parquet', format='parquet')\r\n",
 					"display(df.limit(10))"
 				],
