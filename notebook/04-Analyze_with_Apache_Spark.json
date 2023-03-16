@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "0028f3b8-386e-4c95-bef3-7a6a112af6f4"
+				"spark.autotune.trackingId": "bd9b9cb6-024c-4398-9a3b-75824ba8bf0e"
 			}
 		},
 		"metadata": {
@@ -61,7 +61,7 @@
 					}
 				},
 				"source": [
-					"**Analyze with Apache Spark**\r\n",
+					"# **Analyze with Apache Spark**\r\n",
 					"https://learn.microsoft.com/en-us/azure/synapse-analytics/get-started-analyze-spark"
 				]
 			},
@@ -76,12 +76,10 @@
 						"transient": {
 							"deleting": false
 						}
-					},
-					"microsoft": {
-						"language": "python"
 					}
 				},
 				"source": [
+					"# Analyze NYC Taxi data with a Spark pool\r\n",
 					"%%pyspark\r\n",
 					"df = spark.read.load('abfss://01-raw@dlsfrlaipoccdpeas01.dfs.core.windows.net/samplefiles/NYCTrip/NYCTripSmall.parquet', format='parquet')\r\n",
 					"display(df.limit(10))"
@@ -99,12 +97,10 @@
 						"transient": {
 							"deleting": false
 						}
-					},
-					"microsoft": {
-						"language": "python"
 					}
 				},
 				"source": [
+					"# the schema of the dataframe \r\n",
 					"%%pyspark\r\n",
 					"df.printSchema()"
 				],
@@ -121,12 +117,10 @@
 						"transient": {
 							"deleting": false
 						}
-					},
-					"microsoft": {
-						"language": "python"
 					}
 				},
 				"source": [
+					"# Load the NYC Taxi data into the Spark nyctaxi database\r\n",
 					"%%pyspark\r\n",
 					"spark.sql(\"CREATE DATABASE IF NOT EXISTS nyctaxi\")\r\n",
 					"df.write.mode(\"overwrite\").saveAsTable(\"nyctaxi.trip\")"
@@ -144,12 +138,10 @@
 						"transient": {
 							"deleting": false
 						}
-					},
-					"microsoft": {
-						"language": "python"
 					}
 				},
 				"source": [
+					"# Analyze the NYC Taxi data using Spark and notebooks\r\n",
 					"%%pyspark\r\n",
 					"df = spark.sql(\"SELECT * FROM nyctaxi.trip\") \r\n",
 					"display(df)"
@@ -167,12 +159,10 @@
 						"transient": {
 							"deleting": false
 						}
-					},
-					"microsoft": {
-						"language": "python"
 					}
 				},
 				"source": [
+					"# Analyze this data and save the results into a table called nyctaxi.passengercountstats\r\n",
 					"%%pyspark\r\n",
 					"df = spark.sql(\"\"\"\r\n",
 					"   SELECT passenger_count,\r\n",
