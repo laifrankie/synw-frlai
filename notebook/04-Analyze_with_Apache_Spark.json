@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "bd9b9cb6-024c-4398-9a3b-75824ba8bf0e"
+				"spark.autotune.trackingId": "e6918b40-5cf0-4586-9fd1-801ffddbc4eb"
 			}
 		},
 		"metadata": {
@@ -76,7 +76,8 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
 					"# Analyze NYC Taxi data with a Spark pool\r\n",
@@ -104,7 +105,7 @@
 					"%%pyspark\r\n",
 					"df.printSchema()"
 				],
-				"execution_count": null
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -125,7 +126,7 @@
 					"spark.sql(\"CREATE DATABASE IF NOT EXISTS nyctaxi\")\r\n",
 					"df.write.mode(\"overwrite\").saveAsTable(\"nyctaxi.trip\")"
 				],
-				"execution_count": null
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -138,7 +139,8 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
 					"# Analyze the NYC Taxi data using Spark and notebooks\r\n",
@@ -146,7 +148,7 @@
 					"df = spark.sql(\"SELECT * FROM nyctaxi.trip\") \r\n",
 					"display(df)"
 				],
-				"execution_count": null
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -159,7 +161,8 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
 					"# Analyze this data and save the results into a table called nyctaxi.passengercountstats\r\n",
@@ -176,7 +179,7 @@
 					"display(df)\r\n",
 					"df.write.saveAsTable(\"nyctaxi.passengercountstats\")"
 				],
-				"execution_count": null
+				"execution_count": 5
 			}
 		]
 	}
