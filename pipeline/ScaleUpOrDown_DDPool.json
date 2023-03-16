@@ -1,0 +1,224 @@
+{
+	"name": "ScaleUpOrDown_DDPool",
+	"properties": {
+		"activities": [
+			{
+				"name": "GET List",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Synapse/workspaces/',pipeline().parameters.WorkspaceName,'/sqlPools?api-version=2019-06-01-preview')",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			},
+			{
+				"name": "Filter_PROD",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "GET List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GET List').output.value",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@not(endswith(item().name,'prod'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach_pool",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Filter_PROD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Filter_PROD').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "CheckState",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Synapse/workspaces/',pipeline().parameters.WorkspaceName,'/sqlPools/',item().name,'?api-version=2019-06-01-preview')\n",
+									"type": "Expression"
+								},
+								"connectVia": {
+									"referenceName": "AutoResolveIntegrationRuntime",
+									"type": "IntegrationRuntimeReference"
+								},
+								"method": "GET",
+								"authentication": {
+									"type": "MSI",
+									"resource": "https://management.azure.com/"
+								}
+							}
+						},
+						{
+							"name": "State-ScaleUpOrDown",
+							"type": "Switch",
+							"dependsOn": [
+								{
+									"activity": "CheckState",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@concat(activity('CheckState').output.properties.status,'-',pipeline().parameters.ScaleUporDown)",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "Online-ScaleDown",
+										"activities": [
+											{
+												"name": "SQLPoolScaling-DW100c",
+												"type": "WebActivity",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"url": {
+														"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Synapse/workspaces/',pipeline().parameters.WorkspaceName,'/sqlPools/',activity('CheckState').output.name,'?api-version=2019-06-01-preview')",
+														"type": "Expression"
+													},
+													"connectVia": {
+														"referenceName": "AutoResolveIntegrationRuntime",
+														"type": "IntegrationRuntimeReference"
+													},
+													"method": "PATCH",
+													"body": "{\n  \"sku\": {\n    \"name\": \"DW100c\",\n  }\n}",
+													"authentication": {
+														"type": "MSI",
+														"resource": "https://management.azure.com/"
+													}
+												}
+											}
+										]
+									},
+									{
+										"value": "Online-ScaleUp",
+										"activities": [
+											{
+												"name": "SQLPoolScaling-DW200c",
+												"type": "WebActivity",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"url": {
+														"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Synapse/workspaces/',pipeline().parameters.WorkspaceName,'/sqlPools/',activity('CheckState').output.name,'?api-version=2019-06-01-preview')",
+														"type": "Expression"
+													},
+													"connectVia": {
+														"referenceName": "AutoResolveIntegrationRuntime",
+														"type": "IntegrationRuntimeReference"
+													},
+													"method": "PATCH",
+													"body": "{\n  \"sku\": {\n    \"name\": \"DW200c\",\n  }\n}",
+													"authentication": {
+														"type": "MSI",
+														"resource": "https://management.azure.com/"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ResourceGroup": {
+				"type": "string",
+				"defaultValue": "rg-frlai-demo01-eas"
+			},
+			"SubscriptionID": {
+				"type": "string",
+				"defaultValue": "415c3097-1820-4e11-b5b5-e1aef5b822f7"
+			},
+			"WorkspaceName": {
+				"type": "string",
+				"defaultValue": "synw-frlai-demo"
+			},
+			"SQLPoolName": {
+				"type": "string",
+				"defaultValue": "synsqlpool01"
+			},
+			"ScaleUpOrDown": {
+				"type": "string",
+				"defaultValue": "ScaleDown"
+			}
+		},
+		"folder": {
+			"name": "Administration"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-19T02:43:16Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
