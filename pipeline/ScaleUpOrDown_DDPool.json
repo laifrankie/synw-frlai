@@ -195,19 +195,19 @@
 		"parameters": {
 			"ResourceGroup": {
 				"type": "string",
-				"defaultValue": "rg-frlai-poc-eas-014-synw"
+				"defaultValue": "rg-frlai-demo01-eas"
 			},
 			"SubscriptionID": {
 				"type": "string",
-				"defaultValue": "0b022581-49a8-4393-8b6f-57dda470e935"
+				"defaultValue": "415c3097-1820-4e11-b5b5-e1aef5b822f7"
 			},
 			"WorkspaceName": {
 				"type": "string",
-				"defaultValue": "synw-frlai-poc-eas-01"
+				"defaultValue": "synw-frlai-demo"
 			},
 			"SQLPoolName": {
 				"type": "string",
-				"defaultValue": "SampleDW"
+				"defaultValue": "synsqlpool01"
 			},
 			"ScaleUpOrDown": {
 				"type": "string",
@@ -218,7 +218,7 @@
 			"name": "Administrations"
 		},
 		"annotations": [],
-		"lastPublishTime": "2022-10-19T02:43:16Z"
+		"lastPublishTime": "2023-03-16T08:03:24Z"
 	},
 	"type": "Microsoft.Synapse/workspaces/pipelines"
 }
